@@ -1,0 +1,26 @@
+오늘 할 일 1:
+기존 ros_can_new 또는 ros2p 프로젝트에서
+robot_button_client.py, robot_cmd_server.py, can_control_action_server.py를 열고
+각 파일 위에 주석으로 역할을 적기.
+
+오늘 할 일 2:
+각 파일에서 아래 6개만 표시하기.
+- 노드 이름 : CanControlACtionSever, ButtonClient, RobotCmdServer
+- 통신 방식: service - Cmd.srv, self.create_service() 로 알수있음
+	   : action - CanControl.action , self.ection_server = ActionServer()
+- client인지 server인지 : self.client = self.create_client(Cmd, "/cmd")
+			:self.action_client = ActionClient(
+- 통신 이름: /robot_cmd, /CanControl
+- interface 타입: Cmd, CanControl
+- callback 함수 위치
+     future = self.client.call_async(request)
+	 def handle_cmd_request(self, request, response):
+	
+        goal_future = self.action_client.send_goal_async(goal_msg)
+	  def goal_response_callback(self, future):
+  def result_callback(self, future):
+ def execute_callback(self, goal_handle):
+
+오늘 할 일 3:
+start 입력 기준으로 값 이동을 다시 적기.
+start - 1 - 
