@@ -85,10 +85,12 @@ class CanControlActionServer(Node):
 
             try:
                 subprocess.run(
-                    ["cansend", "can0", frame],  # 테스트용 can1
+                    ["cansend", "can0", frame],
+                    #["sleep", "2"], 
                     check=True,
                     capture_output=True,
                     text=True,
+                    timeout=1.0,
                 )
 
                 self.get_logger().info(
@@ -108,6 +110,19 @@ class CanControlActionServer(Node):
                 )
 
                 return result
+
+            except subprocess.TimeoutExpired:
+                last_error = "cansend timeout"
+
+                self.get_logger().warn(
+                    f"cansend timeout on attempt {attempt}/{max_attempts}"
+                )
+
+                feedback.stage = "retrying_can_frame"
+                feedback.attempt = attempt
+                feedback.detail = f"cansend timeout ({attempt}/{max_attempts})"
+                goal_handle.publish_feedback(feedback)
+
 
             except subprocess.CalledProcessError as e:
                 last_error = e.stderr.strip() if e.stderr else str(e)

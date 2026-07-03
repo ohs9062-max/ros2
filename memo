@@ -24,3 +24,5 @@ robot_button_client.py, robot_cmd_server.py, can_control_action_server.py를 열
 오늘 할 일 3:
 start 입력 기준으로 값 이동을 다시 적기.
 start - 1 - 
+
+ros2 - cansend can0 102#0101 - soketcan 리눅스에서 can 인터페이스 사용 - can0 canable 
